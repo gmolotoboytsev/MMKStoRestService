@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище stoModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="car">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="car_number" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="mark" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="model" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="year" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="color" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="class" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="volume" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="transmission" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="t_type" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="s_id" Type="int" Nullable="false" />
+          <Property Name="c_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="service">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="price" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fio" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="passport" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_car_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="car" Type="Self.car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_car">
+          <End Role="car" Type="Self.car" Multiplicity="1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="car">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="c_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="s_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище stoModelContainer">
+          <EntitySet Name="car" EntityType="Self.car" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="service" EntityType="Self.service" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_car_user" Association="Self.FK_car_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="car" EntitySet="car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_car" Association="Self.FK_orders_car">
+            <End Role="car" EntitySet="car" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_service" Association="Self.FK_orders_service">
+            <End Role="service" EntitySet="service" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="stoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="car">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="car_number" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mark" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="model" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="year" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="color" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="class" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="volume" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="transmission" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="t_type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.FK_car_user" FromRole="car" ToRole="user" />
+          <NavigationProperty Name="orders" Relationship="Self.FK_orders_car" FromRole="car" ToRole="orders" />
+        </EntityType>
+        <EntityType Name="orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="s_id" Type="Int32" Nullable="false" />
+          <Property Name="c_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="car" Relationship="Self.FK_orders_car" FromRole="orders" ToRole="car" />
+          <NavigationProperty Name="service" Relationship="Self.FK_orders_service" FromRole="orders" ToRole="service" />
+        </EntityType>
+        <EntityType Name="service">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="price" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="orders" Relationship="Self.FK_orders_service" FromRole="service" ToRole="orders" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fio" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="passport" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="car" Relationship="Self.FK_car_user" FromRole="user" ToRole="car" />
+        </EntityType>
+        <Association Name="FK_car_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="car" Type="Self.car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="car">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_car">
+          <End Role="car" Type="Self.car" Multiplicity="1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="car">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="c_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="s_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="stoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="car" EntityType="Self.car" />
+          <EntitySet Name="orders" EntityType="Self.orders" />
+          <EntitySet Name="service" EntityType="Self.service" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <AssociationSet Name="FK_car_user" Association="Self.FK_car_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="car" EntitySet="car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_car" Association="Self.FK_orders_car">
+            <End Role="car" EntitySet="car" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_service" Association="Self.FK_orders_service">
+            <End Role="service" EntitySet="service" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище stoModelContainer" CdmEntityContainer="stoEntities">
+          <EntitySetMapping Name="car">
+            <EntityTypeMapping TypeName="stoModel.car">
+              <MappingFragment StoreEntitySet="car">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="car_number" ColumnName="car_number" />
+                <ScalarProperty Name="mark" ColumnName="mark" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="class" ColumnName="class" />
+                <ScalarProperty Name="volume" ColumnName="volume" />
+                <ScalarProperty Name="transmission" ColumnName="transmission" />
+                <ScalarProperty Name="t_type" ColumnName="t_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orders">
+            <EntityTypeMapping TypeName="stoModel.orders">
+              <MappingFragment StoreEntitySet="orders">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="s_id" ColumnName="s_id" />
+                <ScalarProperty Name="c_id" ColumnName="c_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="service">
+            <EntityTypeMapping TypeName="stoModel.service">
+              <MappingFragment StoreEntitySet="service">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="stoModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fio" ColumnName="fio" />
+                <ScalarProperty Name="passport" ColumnName="passport" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
