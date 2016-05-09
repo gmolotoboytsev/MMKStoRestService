@@ -9,32 +9,33 @@ using System.Web.Http;
 
 namespace MMKStoRestService.Controllers
 {
-    public class UserController : ApiController
+    public class OrderController : ApiController
     {
-        private static UserRepository db = new UserRepository();
 
-        // GET: api/User
-        public List<user> Get()
+        private static OrderRepository db = new OrderRepository();
+
+        // GET: api/Order
+        public List<orders> Get()
         {
             return db.GetAll();
         }
 
-        // POST: api/User
-        public bool Post(user user)
+        // POST: api/Order
+        public List<orders> Post(user user)
         {
-            return db.isUserExist(user);
+            return db.GetAllUserOrders(user);
         }
 
         // PUT: api/User
-        public bool Put(user user)
+        public bool Put(orders order)
         {
-            return db.Add(user);
+            return db.Add(order);
         }
 
         // DELETE: api/User
-        public bool Delete(user us)
+        public bool Delete(orders or)
         {
-            return db.Delete(us);
+            return db.Delete(or);
         }
 
     }

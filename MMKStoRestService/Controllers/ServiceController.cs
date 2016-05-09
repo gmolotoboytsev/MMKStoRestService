@@ -10,40 +10,31 @@ using System.Web.Http.Cors;
 using System.Web.Http.Results;
 using System.Web.Script.Services;
 using System.Web;
+using MMKStoRestService.Controllers.Repositories;
 
 namespace MMKStoRestService.Controllers
 {
    
     public class ServiceController : ApiController
     {
-        private static stoEntities dataContext = new stoEntities();
+        private static ServiceRepository db = new ServiceRepository();
 
         // GET: api/Service
         public List<service> Get()
         {
-            var query = from service in dataContext.service
-                        select service;
-
-            return query.ToList();
+            return db.GetAll();
         }
 
         // PUT: api/Service
-        public string Put(service service)
+        public bool Put(service service)
         {
-            service newservice = dataContext.service.Add(service);
-            dataContext.SaveChanges();
-            return newservice.id.ToString();
+            return db.Add(service);
         }
 
         // DELETE: api/Service
-        public string Delete(service ser)
+        public bool Delete(service service)
         {
-            var del_ser = (from service in dataContext.service
-                       where service.id == ser.id
-                       select service).SingleOrDefault();
-            dataContext.service.Remove(del_ser);
-            dataContext.SaveChanges();
-            return true.ToString();
+            return db.Delete(service)
         }
 
     }

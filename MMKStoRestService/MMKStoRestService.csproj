@@ -181,6 +181,12 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CarController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\Repositories\CarRepository.cs" />
+    <Compile Include="Controllers\Repositories\IRepository.cs" />
+    <Compile Include="Controllers\Repositories\OrderRepository.cs" />
+    <Compile Include="Controllers\Repositories\ServiceRepository.cs" />
+    <Compile Include="Controllers\Repositories\UserRepository.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">

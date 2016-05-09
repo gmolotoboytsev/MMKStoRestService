@@ -1,4 +1,5 @@
-﻿using MMKStoRestService.Models;
+﻿using MMKStoRestService.Controllers.Repositories;
+using MMKStoRestService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,34 +11,29 @@ namespace MMKStoRestService.Controllers
 {
     public class CarController : ApiController
     {
-        private static stoEntities dataContext = new stoEntities();
+        private static CarRepository db = new CarRepository();
 
         // GET: api/Car
-        public List<car> Get()
-        {
-            var query = from car in dataContext.car
-                        select car;
+        public List<car> Get() {
+            return db.GetAll();
+        }
 
-            return query.ToList();
+        // POST: api/Car
+        public List<car> Post(user user)
+        {
+            return db.GetAllUserCar(user);
         }
 
         // PUT: api/Car
-        public string Put(car car)
+        public bool Put(car car)
         {
-            car newcar = dataContext.car.Add(car);
-            dataContext.SaveChanges();
-            return newcar.id.ToString();
+            return db.Add(car);
         }
 
         // DELETE: api/Car
-        public string Delete(service cr)
+        public bool Delete(car cr)
         {
-            var del_car = (from car in dataContext.car
-                           where car.id == cr.id
-                           select car).SingleOrDefault();
-            dataContext.car.Remove(del_car);
-            dataContext.SaveChanges();
-            return true.ToString();
+            return db.Delete(cr);
         }
     }
 }
